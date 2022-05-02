@@ -1,4 +1,0 @@
-/Users/azhong/Documents/Project/unix-network-programming/01-Introduction/build/CMakeFiles/daytimetcpcli.dir
-/Users/azhong/Documents/Project/unix-network-programming/01-Introduction/build/CMakeFiles/daytimetcpsrv.dir
-/Users/azhong/Documents/Project/unix-network-programming/01-Introduction/build/CMakeFiles/edit_cache.dir
-/Users/azhong/Documents/Project/unix-network-programming/01-Introduction/build/CMakeFiles/rebuild_cache.dir
