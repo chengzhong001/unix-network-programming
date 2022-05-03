@@ -11,7 +11,7 @@
 #include <arpa/inet.h>
 
 #define MAXLINE 4096
-// #define LISTENQ 1024
+#define LISTENQ 1024
 #define SA struct sockaddr
 
 // #define bzero(ptr, n) memset(ptr, 0, n)
@@ -129,7 +129,7 @@ int main(int argc, char const *argv[])
 {
 
     int listenfd, connfd;
-    int LISTENQ = 1024;
+    // int LISTENQ = 1024;
     struct sockaddr_in servaddr;
     char buff[MAXLINE];
     char *ptr;
@@ -138,8 +138,12 @@ int main(int argc, char const *argv[])
     listenfd = Socket(AF_INET, SOCK_STREAM, 0);
     // bzero(&servaddr, sizeof(servaddr));
     memset(&servaddr, 0, sizeof(servaddr));
+
+    // AF_INET: IPv4 Internet protocols
     servaddr.sin_family = AF_INET;
+    // INADDR_ANY: 0.0.0.0
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    // servaddr.sin_port = htons(13) = 256*13
     servaddr.sin_port = htons(13); /* daytime server */
 
     // Bind(listenfd, (SA *)&servaddr, sizeof(servaddr));
@@ -147,16 +151,21 @@ int main(int argc, char const *argv[])
         err_sys("bind error");
 
     // Listen(listenfd, LISTENQ);
-    /*4can override 2nd argument with environment variable */
-    if ((ptr = getenv("LISTENQ")) != NULL)
-        LISTENQ = atoi(ptr);
+    // if ((ptr = getenv("LISTENQ")) != NULL)
+    //     LISTENQ = atoi(ptr);
+    // printf("LISTENQ: %d\n", LISTENQ);
+    
     if (listen(listenfd, LISTENQ) < 0)
         err_sys("listen error");
 
     while (1)
     {
-        connfd = Accept(listenfd, (SA *)NULL, NULL);
+        // connfd = Accept(listenfd, (SA *)NULL, NULL);
+        if ((connfd = accept(listenfd, (SA *)NULL, NULL)) < 0)
+            err_sys("accept error");
+
         ticks = time(NULL);
+        // buffer: Tue May  3 18:15:19 2022
         snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
 
         // Write(connfd, buff, strlen(buff));
