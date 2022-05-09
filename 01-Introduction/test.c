@@ -15,5 +15,6 @@ int main()
     printf("%s : %s\n", inet_ntoa(addr1), inet_ntoa(addr2)); //注意这一句的运行结果
     printf("%s\n", inet_ntoa(addr1));
     printf("%s\n", inet_ntoa(addr2));
+    
     return 0;
 }
